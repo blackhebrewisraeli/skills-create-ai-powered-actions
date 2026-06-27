@@ -27,8 +27,12 @@ jobs:
           reactions: laugh
           edit-mode: replace
           body: |
-            ## 🤖 AI Joke Rating Results
+            ## 🤖 AI Joke Rating Results (Structured)
             **Your joke:**
             > ${{ github.event.comment.body }}
+
             **AI Analysis:**
-            ${{ steps.rate-joke.outputs.result }}
+            - **Is it a joke?** ${{ fromJson(steps.rate-joke.outputs.result).is_joke }}
+            - **Humor Type:** ${{ fromJson(steps.rate-joke.outputs.result).humor_type }}
+            - **Score:** ${{ fromJson(steps.rate-joke.outputs.result).score }}/10
+            - **Feedback:** ${{ fromJson(steps.rate-joke.outputs.result).feedback }}
